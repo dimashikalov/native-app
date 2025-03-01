@@ -1,4 +1,7 @@
+import EyeClosedIcon from '@/assets/icons/eye-closed';
+import EyeOpenedIcon from '@/assets/icons/eye-opened';
 import { Input } from '@/shared/Input/Input';
+import { Colors, Gaps } from '@/shared/tokens';
 import { Link } from 'expo-router';
 import {
   Button,
@@ -39,6 +42,8 @@ export default function HomeScreen() {
         </View>
 
         <Text style={styles.link_text}>Восстановить пароль</Text>
+        <EyeClosedIcon />
+        <EyeOpenedIcon />
       </View>
     </View>
   );
@@ -49,17 +54,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     // alignItems: 'center',
-    backgroundColor: 'black',
+    backgroundColor: Colors.black,
     padding: 55,
   },
 
   content: {
     alignItems: 'center',
-    gap: 50,
+    gap: Gaps.g50,
   },
   form: {
     alignSelf: 'stretch',
-    gap: 16,
+    gap: Gaps.g16,
   },
 
   title: {

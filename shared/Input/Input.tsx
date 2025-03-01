@@ -1,11 +1,12 @@
 import { StyleSheet, TextInput, TextInputProps } from 'react-native';
+import { Colors, Radius } from '../tokens';
 
 export function Input(props: TextInputProps) {
   return (
     <TextInput
       style={styles.input}
       {...props}
-      placeholderTextColor={'#AFB2BF'}
+      placeholderTextColor={Colors.gray}
     />
   );
 }
@@ -13,8 +14,8 @@ export function Input(props: TextInputProps) {
 const styles = StyleSheet.create({
   input: {
     height: 58,
-    borderRadius: 10,
-    backgroundColor: '#2E2D3D',
+    borderRadius: Radius.r10,
+    backgroundColor: Colors.violetDark,
     paddingHorizontal: 24,
     shadowColor: 'rgba(0, 0, 0, 0.04)',
     shadowOffset: {
@@ -29,6 +30,6 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontStyle: 'normal',
     // lineHeight: 1.2,
-    color: '#AFB2BF',
+    // color: '#AFB2BF',
   },
 });
