@@ -1,13 +1,38 @@
-import { StyleSheet, TextInput, TextInputProps } from 'react-native';
-import { Colors, Radius } from '../tokens';
+import {
+  Pressable,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  View,
+} from 'react-native';
+import { Colors, Fonst, Radius } from '../tokens';
+import { useState } from 'react';
+import EyeOpenedIcon from '@/assets/icons/eye-opened';
+import EyeClosedIcon from '@/assets/icons/eye-closed';
 
-export function Input(props: TextInputProps) {
+export function Input({
+  isPassword,
+  ...props
+}: TextInputProps & { isPassword?: boolean }) {
+  const [isPasswordVisible, setIsPassportVisble] = useState<boolean>(false);
   return (
-    <TextInput
-      style={styles.input}
-      {...props}
-      placeholderTextColor={Colors.gray}
-    />
+    <View>
+      <TextInput
+        style={styles.input}
+        secureTextEntry={isPassword && !isPasswordVisible}
+        {...props}
+        placeholderTextColor={Colors.gray}
+      />
+
+      {isPassword && (
+        <Pressable
+          style={styles.eyeIcon}
+          onPress={() => setIsPassportVisble((state) => !state)}
+        >
+          {isPasswordVisible ? <EyeOpenedIcon /> : <EyeClosedIcon />}
+        </Pressable>
+      )}
+    </View>
   );
 }
 
@@ -26,10 +51,16 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
 
     fontFamily: 'Fira Sans',
-    fontSize: 16,
+    fontSize: Fonst.f16,
     fontWeight: '400',
     fontStyle: 'normal',
     // lineHeight: 1.2,
-    // color: '#AFB2BF',
+    color: Colors.gray,
+  },
+  eyeIcon: {
+    position: 'absolute',
+    right: 0,
+    paddingHorizontal: 20,
+    paddingVertical: 18,
   },
 });

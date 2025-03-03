@@ -1,18 +1,7 @@
-import EyeClosedIcon from '@/assets/icons/eye-closed';
-import EyeOpenedIcon from '@/assets/icons/eye-opened';
+import { Button } from '@/shared/Button/Button';
 import { Input } from '@/shared/Input/Input';
 import { Colors, Gaps } from '@/shared/tokens';
-import { Link } from 'expo-router';
-import {
-  Button,
-  Dimensions,
-  Image,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  TextInput,
-  View,
-} from 'react-native';
+import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
   const width = Dimensions.get('window').width;
@@ -34,16 +23,14 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.form}>
-          <Input placeholder="Email" inputMode="email" />
+          <Input placeholder="Email" />
 
-          <Input placeholder="Пароль" inputMode="text" />
+          <Input placeholder="Пароль" isPassword />
 
-          <Button title="Войти" color={'#6C38CC'} />
+          <Button text="Войти" />
         </View>
 
         <Text style={styles.link_text}>Восстановить пароль</Text>
-        <EyeClosedIcon />
-        <EyeOpenedIcon />
       </View>
     </View>
   );
