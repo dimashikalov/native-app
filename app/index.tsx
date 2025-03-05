@@ -1,12 +1,23 @@
 import { Button } from '@/shared/Button/Button';
+import { ErrorNotification } from '@/shared/ErrorNotification/ErrorNotification';
 import { Input } from '@/shared/Input/Input';
 import { Colors, Gaps } from '@/shared/tokens';
-import { Dimensions, Image, StyleSheet, Text, View } from 'react-native';
+import { useState } from 'react';
+import { Image, StyleSheet, Text, View } from 'react-native';
 
 export default function HomeScreen() {
-  const width = Dimensions.get('window').width;
+  const [error, setError] = useState<string | undefined>();
+
+  const alert = () => {
+    setError('OOOO, error!');
+    setTimeout(() => {
+      setError(undefined);
+    }, 4000);
+  };
+
   return (
     <View style={styles.container}>
+      <ErrorNotification error={error} />
       <View style={styles.content}>
         <View style={styles.title}>
           <Image
@@ -14,12 +25,6 @@ export default function HomeScreen() {
             source={require('./../assets/images/logo.png')}
             resizeMode="contain"
           />
-          {/* <Image
-            style={styles.title_image}
-            source={require('./../assets/images/school_logo.png')}
-            resizeMode="center"
-          />
-          <Text style={styles.title_text}>PurpleSchool</Text> */}
         </View>
 
         <View style={styles.form}>
@@ -27,7 +32,7 @@ export default function HomeScreen() {
 
           <Input placeholder="Пароль" isPassword />
 
-          <Button text="Войти" />
+          <Button text="Войти" onPress={alert} />
         </View>
 
         <Text style={styles.link_text}>Восстановить пароль</Text>
