@@ -9,28 +9,13 @@
     "userInterfaceStyle": "automatic",
     "backgroundColor": "#16171D",
     "newArchEnabled": true,
-    "ios": {
-      "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
-        "backgroundColor": "#16171D"
-      }
-    },
-    "web": {
-      "bundler": "metro",
-      "output": "static",
-      "favicon": "./assets/images/favicon.png"
-    },
     "plugins": [
-      "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/splash.png",
-          "resizeMode": "contain",
-          "backgroundColor": "#232323"
+          "backgroundColor": "#232323",
+          "image": "./assets/images/splash-screen.png"
+          // "imageWidth": 200
         }
       ],
       [
@@ -39,8 +24,23 @@
           "fonts": ["./assets/fonts/FiraSans-SemiBold.ttf"]
           // "fonts": ["./assets/fonts/FiraSans-Regular.ttf"]
         }
-      ]
+      ],
+      "expo-router"
     ],
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "backgroundColor": "#16171D"
+      }
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/favicon.png"
+    },
+
     "experiments": {
       "typedRoutes": true
     }

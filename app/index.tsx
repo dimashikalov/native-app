@@ -1,6 +1,7 @@
 import { Button } from '@/shared/Button/Button';
 import { ErrorNotification } from '@/shared/ErrorNotification/ErrorNotification';
 import { Input } from '@/shared/Input/Input';
+import { CustomLink } from '@/shared/Link/CustomLink';
 import { Colors, Gaps } from '@/shared/tokens';
 import { Link } from 'expo-router';
 import { useState } from 'react';
@@ -36,9 +37,7 @@ export default function HomeScreen() {
           <Button text="Войти" onPress={alert} />
         </View>
 
-        <Link href={'/restore'}>
-          <Text style={styles.link_text}>Восстановить пароль</Text>
-        </Link>
+        <CustomLink href={'/restore'} text="Восстановить пароль" />
       </View>
     </View>
   );
@@ -48,7 +47,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    // alignItems: 'center',
     backgroundColor: Colors.black,
     padding: 55,
   },

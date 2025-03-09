@@ -20,7 +20,6 @@ export default function RootLayout() {
   const insets = useSafeAreaInsets();
   const [loaded, error] = useFonts({
     FiraSans: require('../assets/fonts/FiraSans-Regular.ttf'),
-    // FiraSans: require('./assets/fonts/FiraSans-Regular.ttf'),
     FiraSansSemiBold: require('../assets/fonts/FiraSans-SemiBold.ttf'),
   });
 

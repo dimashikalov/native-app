@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     shadowRadius: 32,
     shadowOpacity: 1,
 
-    fontFamily: 'FiraSans',
+    fontFamily: Fonst.regular,
     fontSize: Fonst.f16,
     fontWeight: '400',
     fontStyle: 'normal',

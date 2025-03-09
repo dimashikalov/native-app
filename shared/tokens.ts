@@ -21,4 +21,6 @@ export const Radius = {
 export const Fonst = {
   f16: 16,
   f18: 18,
+  regular: 'FiraSans',
+  semibold: 'FiraSansSemiBold',
 };
