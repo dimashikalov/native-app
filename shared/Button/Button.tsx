@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
   text: {
     width: 52,
     height: 22,
-    fontFamily: 'Fira Sans',
+    fontFamily: 'FiraSans',
     fontSize: Fonst.f18,
     fontWeight: '400',
     fontStyle: 'normal',
