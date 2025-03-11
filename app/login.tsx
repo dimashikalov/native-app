@@ -37,6 +37,7 @@ export default function HomeScreen() {
           <Button text="Войти" onPress={alert} />
         </View>
 
+        {/* <CustomLink href={'/course/dimas'} text="Восстановить пароль" /> */}
         <CustomLink href={'/restore'} text="Восстановить пароль" />
       </View>
     </View>

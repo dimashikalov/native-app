@@ -24,8 +24,8 @@
           "fonts": ["./assets/fonts/FiraSans-SemiBold.ttf"]
           // "fonts": ["./assets/fonts/FiraSans-Regular.ttf"]
         }
-      ],
-      "expo-router"
+      ]
+      // "expo-router"
     ],
     "ios": {
       "supportsTablet": true
