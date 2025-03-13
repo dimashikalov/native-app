@@ -1,25 +1,55 @@
+import { loginAtom } from '@/entities/auth/model/auth.state';
 import { Button } from '@/shared/Button/Button';
 import { ErrorNotification } from '@/shared/ErrorNotification/ErrorNotification';
 import { Input } from '@/shared/Input/Input';
 import { CustomLink } from '@/shared/Link/CustomLink';
 import { Colors, Gaps } from '@/shared/tokens';
-import { Link } from 'expo-router';
-import { useState } from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { router } from 'expo-router';
+import { useAtom } from 'jotai';
+import { useEffect, useState } from 'react';
+import { Image, StyleSheet, View } from 'react-native';
 
 export default function HomeScreen() {
-  const [error, setError] = useState<string | undefined>();
+  const [localError, setLocalError] = useState<string | undefined>();
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
+
+  const [{ access_token, isLoading, error }, login] = useAtom(loginAtom);
 
   const alert = () => {
-    setError('OOOO, error!');
+    setLocalError('OOOO, error!');
     setTimeout(() => {
-      setError(undefined);
+      setLocalError(undefined);
     }, 4000);
+  };
+
+  useEffect(() => {
+    if (error) {
+      setLocalError(error);
+    }
+  }, [error]);
+
+  useEffect(() => {
+    if (access_token) {
+      router.replace('/');
+    }
+  }, [access_token]);
+
+  const onSubmitForm = async () => {
+    if (!email) {
+      setLocalError('Не введен email');
+      return;
+    }
+    if (!password) {
+      setLocalError('Не введен пароль');
+      return;
+    }
+    login({ email, password });
   };
 
   return (
     <View style={styles.container}>
-      <ErrorNotification error={error} />
+      <ErrorNotification error={localError} />
       <View style={styles.content}>
         <View style={styles.title}>
           <Image
@@ -30,14 +60,13 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.form}>
-          <Input placeholder="Email" />
+          <Input placeholder="Email" onChangeText={setEmail} />
 
-          <Input placeholder="Пароль" isPassword />
+          <Input placeholder="Пароль" isPassword onChangeText={setPassword} />
 
-          <Button text="Войти" onPress={alert} />
+          <Button text="Войти" onPress={onSubmitForm} isLoading={isLoading} />
         </View>
 
-        {/* <CustomLink href={'/course/dimas'} text="Восстановить пароль" /> */}
         <CustomLink href={'/restore'} text="Восстановить пароль" />
       </View>
     </View>
