@@ -8,7 +8,7 @@ import {
   Text,
   View,
 } from 'react-native';
-import { Colors, Fonst, Radius } from '../tokens';
+import { Colors, Fonts, Radius } from '../tokens';
 
 export function Button({
   text,
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
 
   text: {
     fontFamily: 'FiraSans',
-    fontSize: Fonst.f18,
+    fontSize: Fonts.f18,
     fontWeight: '400',
     fontStyle: 'normal',
     textAlign: 'center',

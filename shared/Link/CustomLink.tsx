@@ -1,6 +1,6 @@
 import { Link, LinkProps } from 'expo-router';
 import { StyleSheet, Text } from 'react-native';
-import { Colors, Fonst } from '../tokens';
+import { Colors, Fonts } from '../tokens';
 
 export function CustomLink({ text, ...props }: LinkProps & { text: string }) {
   return (
@@ -12,8 +12,8 @@ export function CustomLink({ text, ...props }: LinkProps & { text: string }) {
 
 const styles = StyleSheet.create({
   link: {
-    fontSize: Fonst.f18,
+    fontSize: Fonts.f18,
     color: Colors.link,
-    fontFamily: Fonst.regular,
+    fontFamily: Fonts.regular,
   },
 });

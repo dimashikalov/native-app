@@ -5,7 +5,7 @@ import {
   TextInputProps,
   View,
 } from 'react-native';
-import { Colors, Fonst, Radius } from '../tokens';
+import { Colors, Fonts, Radius } from '../tokens';
 import { useState } from 'react';
 import EyeOpenedIcon from '@/assets/icons/eye-opened';
 import EyeClosedIcon from '@/assets/icons/eye-closed';
@@ -50,8 +50,8 @@ const styles = StyleSheet.create({
     shadowRadius: 32,
     shadowOpacity: 1,
 
-    fontFamily: Fonst.regular,
-    fontSize: Fonst.f16,
+    fontFamily: Fonts.regular,
+    fontSize: Fonts.f16,
     fontWeight: '400',
     fontStyle: 'normal',
     // lineHeight: 1.2,

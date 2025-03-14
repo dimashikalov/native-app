@@ -1,6 +1,6 @@
 import { View, StyleSheet, Image, Text, Dimensions } from 'react-native';
 import { Link, Stack } from 'expo-router';
-import { Colors, Fonst, Gaps } from '@/shared/tokens';
+import { Colors, Fonts, Gaps } from '@/shared/tokens';
 import { CustomLink } from '@/shared/Link/CustomLink';
 
 export default function NotFoundScreen() {
@@ -37,10 +37,10 @@ const styles = StyleSheet.create({
   },
 
   text: {
-    fontSize: Fonst.f18,
+    fontSize: Fonts.f18,
     color: Colors.white,
     textAlign: 'center',
-    fontFamily: Fonst.regular,
+    fontFamily: Fonts.regular,
   },
   image: {
     width: 204,

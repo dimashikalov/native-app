@@ -19,7 +19,7 @@ export const Radius = {
   r10: 10,
 };
 
-export const Fonst = {
+export const Fonts = {
   f16: 16,
   f18: 18,
   f20: 20,
