@@ -102,7 +102,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   title_image: {
-    // height: 25,
     width: 220,
   },
 
