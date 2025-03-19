@@ -10,6 +10,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { logoutAtom } from '../../../auth/model/auth.state';
 import { loadProfileAtom } from '@/entities/user/model/user.state';
 import { useEffect } from 'react';
+import { UserProfile } from '@/entities/user/ui/UserMenu/UserMenu';
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
   const logout = useSetAtom(logoutAtom);
@@ -26,7 +27,7 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
     >
       <View style={styles.content}>
         <CloseDrawer {...props.navigation} />
-        <Text style={{ color: 'white' }}>{profile.profile?.name}</Text>
+        <UserProfile user={profile.profile} />
       </View>
       <View style={styles.footer}>
         <CustomLink text="Выход" onPress={logout} href={'/login'} />
