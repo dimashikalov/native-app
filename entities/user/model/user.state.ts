@@ -22,14 +22,12 @@ export const loadProfileAtom = atom(
       error: null,
       profile: null,
     });
-    console.log('token == ', access_token);
     try {
       const { data } = await axios.get<UserRequest>(API.profile, {
         headers: {
           Authorization: `Bearer ${access_token}`,
         },
       });
-      console.log('data === > ', data.profile);
       set(profileAtom, {
         isLoading: false,
         profile: data.profile,

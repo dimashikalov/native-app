@@ -3,7 +3,7 @@ import React from 'react';
 import { User } from '../../model/user.model';
 import { Colors, Fonts, Gaps } from '@/shared/tokens';
 
-export function UserProfile({ user }: { user: User | null }) {
+export function UserMenu({ user }: { user: User | null }) {
   if (!user) {
     return;
   }
@@ -38,9 +38,9 @@ const styles = StyleSheet.create({
     marginTop: 30,
   },
   image: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
+    width: 70,
+    height: 70,
+    borderRadius: 35,
   },
   text: {
     color: Colors.white,

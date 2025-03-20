@@ -1,15 +1,7 @@
 import MenuIcon from '@/assets/icons/menu';
-import { Colors, Fonts, Radius } from '@/shared/tokens';
-import { DrawerNavigationProp } from '@react-navigation/drawer';
+import { Colors } from '@/shared/tokens';
 import { useState } from 'react';
-import {
-  ActivityIndicator,
-  Pressable,
-  PressableProps,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import { Pressable, PressableProps, StyleSheet, View } from 'react-native';
 
 export function MenuButton({
   navigation,

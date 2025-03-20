@@ -10,7 +10,17 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { logoutAtom } from '../../../auth/model/auth.state';
 import { loadProfileAtom } from '@/entities/user/model/user.state';
 import { useEffect } from 'react';
-import { UserProfile } from '@/entities/user/ui/UserMenu/UserMenu';
+import { UserMenu } from '@/entities/user/ui/UserMenu/UserMenu';
+import MenuItem from '../MenuItem/MenuItem';
+import ProfileIcon from '@/assets/icons/profile-icon';
+import CourseIcon from '@/assets/icons/course-icon';
+import ClubIcon from '@/assets/icons/club-icon';
+
+const MENU = [
+  { text: 'Профиль', icon: <ProfileIcon />, path: 'profile' },
+  { text: 'Курсы', icon: <CourseIcon />, path: 'index' },
+  // { text: 'Клуб', icon: <ClubIcon />, path: '/club' },
+];
 
 export function CustomDrawer(props: DrawerContentComponentProps) {
   const logout = useSetAtom(logoutAtom);
@@ -27,8 +37,14 @@ export function CustomDrawer(props: DrawerContentComponentProps) {
     >
       <View style={styles.content}>
         <CloseDrawer {...props.navigation} />
-        <UserProfile user={profile.profile} />
+        <UserMenu user={profile.profile} />
+        <View style={styles.menu}>
+          {MENU.map((menu) => (
+            <MenuItem key={menu.path} {...menu} drawer={props} />
+          ))}
+        </View>
       </View>
+
       <View style={styles.footer}>
         <CustomLink text="Выход" onPress={logout} href={'/login'} />
         <Image
@@ -56,5 +72,8 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 160,
+  },
+  menu: {
+    marginTop: 40,
   },
 });
