@@ -14,12 +14,10 @@ import { UserMenu } from '@/entities/user/ui/UserMenu/UserMenu';
 import MenuItem from '../../../../entities/layout/ui/MenuItem/MenuItem';
 import ProfileIcon from '@/assets/icons/profile-icon';
 import CourseIcon from '@/assets/icons/course-icon';
-import ClubIcon from '@/assets/icons/club-icon';
 
 const MENU = [
   { text: 'Профиль', icon: <ProfileIcon />, path: 'profile' },
   { text: 'Курсы', icon: <CourseIcon />, path: 'index' },
-  // { text: 'Клуб', icon: <ClubIcon />, path: '/club' },
 ];
 
 export function CustomDrawer(props: DrawerContentComponentProps) {

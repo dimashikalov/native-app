@@ -7,7 +7,7 @@ import { Colors, Fonts } from '@/shared/tokens';
 import { MenuButton } from '@/features/layout/ui/MenuButton/MenuButton';
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
-import { CustomDrawer } from '@/entities/layout/ui/CustomDrawer/CustomDrawer';
+import { CustomDrawer } from '@/widget/layout/ui/CustomDrawer/CustomDrawer';
 
 export default function AppLayout() {
   const { access_token } = useAtomValue(authAtom);
@@ -16,7 +16,7 @@ export default function AppLayout() {
     return <Redirect href="/login" />;
   }
   return (
-    <GestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
       <SafeAreaProvider>
         <Drawer
           drawerContent={(props) => <CustomDrawer {...props} />}
