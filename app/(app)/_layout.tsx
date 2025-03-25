@@ -8,6 +8,7 @@ import { MenuButton } from '@/features/layout/ui/MenuButton/MenuButton';
 import { DrawerNavigationOptions } from '@react-navigation/drawer';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { CustomDrawer } from '@/widget/layout/ui/CustomDrawer/CustomDrawer';
+import { StyleSheet } from 'react-native';
 
 export default function AppLayout() {
   const { access_token } = useAtomValue(authAtom);
@@ -16,7 +17,7 @@ export default function AppLayout() {
     return <Redirect href="/login" />;
   }
   return (
-    <GestureHandlerRootView style={{ flex: 1 }}>
+    <GestureHandlerRootView style={styles.wrapper}>
       <SafeAreaProvider>
         <Drawer
           drawerContent={(props) => <CustomDrawer {...props} />}
@@ -55,3 +56,9 @@ export default function AppLayout() {
     </GestureHandlerRootView>
   );
 }
+
+const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+  },
+});
