@@ -1,107 +1,46 @@
-import { Alert, Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import React, { useState } from 'react';
-import {
-  launchCameraAsync,
-  launchImageLibraryAsync,
-  useMediaLibraryPermissions,
-  useCameraPermissions,
-  PermissionStatus,
-} from 'expo-image-picker';
-import { Button } from '@/shared/Button/Button';
+import ImageUploader from '@/shared/ImageUploader/ImageUploader';
+import { Gaps } from '@/shared/tokens';
 
 export default function Profile() {
   const [image, setImage] = useState<string | null>(null);
-  const [cameraPermissions, requestCameraPermission] = useCameraPermissions();
-  const [libraryPermissions, requestLibraryPermission] =
-    useMediaLibraryPermissions();
-
-  const verifyCameraPermissions = async () => {
-    if (cameraPermissions?.status === PermissionStatus.UNDETERMINED) {
-      const res = await requestCameraPermission();
-      return res.granted;
-    }
-
-    if (cameraPermissions?.status === PermissionStatus.DENIED) {
-      Alert.alert('Недостаточно прав для доступа к камере');
-      return false;
-    }
-
-    return true;
-  };
-
-  const verifyMediaPermissions = async () => {
-    if (libraryPermissions?.status === PermissionStatus.UNDETERMINED) {
-      const res = await requestCameraPermission();
-      return res.granted;
-    }
-
-    if (libraryPermissions?.status === PermissionStatus.DENIED) {
-      Alert.alert('Недостаточно прав для доступа к фото');
-      return false;
-    }
-
-    return true;
-  };
-
-  const captureAvatar = async () => {
-    const isPermissionGranted = await verifyCameraPermissions();
-    if (!isPermissionGranted) {
-      return;
-    }
-
-    const result = await launchCameraAsync({
-      mediaTypes: ['images'],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.5,
-    });
-
-    console.log(result);
-
-    if (!result.assets) {
-      return;
-    }
-
-    setImage(result.assets[0].uri);
-  };
-
-  const pickAvatar = async () => {
-    const isPermissionGranted = await verifyMediaPermissions();
-    if (!isPermissionGranted) {
-      return;
-    }
-
-    const result = await launchImageLibraryAsync({
-      mediaTypes: ['images'],
-      allowsEditing: true,
-      aspect: [1, 1],
-      quality: 0.5,
-    });
-
-    console.log(result);
-    if (!result.assets) {
-      return;
-    }
-
-    setImage(result.assets[0].uri);
-  };
 
   return (
-    <View>
-      <Text>Profile</Text>
-      <Button text="Снять изображение" onPress={captureAvatar} />
-      <Button text="Выбрать из галереи" onPress={pickAvatar} />
-      {image && (
+    <View style={styles.container}>
+      {image ? (
         <Image
+          style={styles.image}
           source={{
             uri: image,
             width: 100,
             height: 100,
           }}
         />
+      ) : (
+        <Image
+          style={styles.image}
+          source={require('../../assets/images/avatar.png')}
+          resizeMode="contain"
+        />
       )}
+
+      <ImageUploader onUpload={setImage} />
     </View>
   );
 }
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  container: {
+    flexDirection: 'row',
+    gap: Gaps.g20,
+    alignItems: 'center',
+    paddingHorizontal: 30,
+    paddingVertical: 20,
+  },
+  image: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+  },
+});
