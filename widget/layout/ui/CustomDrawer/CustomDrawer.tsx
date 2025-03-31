@@ -10,10 +10,11 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import { logoutAtom } from '../../../../entities/auth/model/auth.state';
 import { loadProfileAtom } from '@/entities/user/model/user.state';
 import { useEffect } from 'react';
-import { UserMenu } from '@/entities/user/ui/UserMenu/UserMenu';
+
 import MenuItem from '../../../../entities/layout/ui/MenuItem/MenuItem';
 import ProfileIcon from '@/assets/icons/profile-icon';
 import CourseIcon from '@/assets/icons/course-icon';
+import { UserMenu } from '@/widget/user/ui/UserMenu/UserMenu';
 
 const MENU = [
   { text: 'Профиль', icon: <ProfileIcon />, path: 'profile' },

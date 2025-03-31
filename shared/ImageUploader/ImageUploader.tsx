@@ -1,21 +1,54 @@
 import { Alert, Pressable, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import {
+  launchCameraAsync,
   launchImageLibraryAsync,
   PermissionStatus,
   requestCameraPermissionsAsync,
+  useCameraPermissions,
   useMediaLibraryPermissions,
 } from 'expo-image-picker';
 import ImageUploaderIcon from '@/assets/icons/uploader-icon';
 import { Colors, Fonts, Gaps, Radius } from '../tokens';
+import FormData from 'form-data';
+import axios, { AxiosError } from 'axios';
+import { FILE_API } from '../api';
+import { UploaderResponse } from './ImageUploader.interface';
 
 interface ImageUploaderProps {
   onUpload: (uri: string) => void;
+  onError: (error: string) => void;
 }
 
-export default function ImageUploader({ onUpload }: ImageUploaderProps) {
+export default function ImageUploader({
+  onUpload,
+  onError,
+}: ImageUploaderProps) {
+  // const [libraryPermissions, requestLibraryPermission] = useCameraPermissions();
   const [libraryPermissions, requestLibraryPermission] =
     useMediaLibraryPermissions();
+
+  const upload = async () => {
+    const isPermissionGranted = await verifyMediaPermissions();
+    if (!isPermissionGranted) {
+      onError('Недостаточно прав');
+      return;
+    }
+
+    const asset = await pickImage();
+    console.log('asset ', asset?.uri);
+    if (!asset) {
+      onError('Не выбрано изображение');
+      return;
+    }
+
+    const uploadedUrl = await uploadToServer(asset.uri, asset.fileName ?? '');
+    if (!uploadedUrl) {
+      onError('Не удалось загрузить изображение');
+      return;
+    }
+    onUpload(uploadedUrl);
+  };
 
   const verifyMediaPermissions = async () => {
     if (libraryPermissions?.status === PermissionStatus.UNDETERMINED) {
@@ -32,11 +65,7 @@ export default function ImageUploader({ onUpload }: ImageUploaderProps) {
   };
 
   const pickImage = async () => {
-    const isPermissionGranted = await verifyMediaPermissions();
-    if (!isPermissionGranted) {
-      return;
-    }
-
+    // const result = await launchCameraAsync({
     const result = await launchImageLibraryAsync({
       mediaTypes: ['images'],
       allowsEditing: true,
@@ -44,15 +73,49 @@ export default function ImageUploader({ onUpload }: ImageUploaderProps) {
       quality: 0.5,
     });
 
-    console.log(result);
+    console.log('pick == > ', result);
     if (!result.assets) {
-      return;
+      return null;
     }
 
-    onUpload(result.assets[0].uri);
+    return result.assets[0];
+  };
+
+  const uploadToServer = async (uri: string, name: string) => {
+    console.log('asset uri ', uri);
+    console.log('asset name ', name);
+    const formData = new FormData();
+    formData.append('files', {
+      // formData.append('lms.stage', {
+      uri,
+      name,
+      type: 'image/jpeg',
+    });
+
+    console.log('formdata ', formData);
+    try {
+      const { data } = await axios.post<UploaderResponse>(
+        FILE_API.uploadImage,
+        formData,
+        {
+          headers: {
+            'Content-Type': 'multipart/fom-data',
+          },
+        }
+      );
+      console.log('data ', data);
+
+      return data.urls.original;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        console.error('error ,', error);
+      }
+
+      return null;
+    }
   };
   return (
-    <Pressable onPress={pickImage}>
+    <Pressable onPress={upload}>
       <View style={styles.container}>
         <ImageUploaderIcon />
         <Text style={styles.text}>Загрузить изображение</Text>

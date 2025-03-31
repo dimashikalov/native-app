@@ -1,31 +1,39 @@
-import { Image, StyleSheet, Text, View } from 'react-native';
-import React, { useState } from 'react';
+import { StyleSheet, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
 import ImageUploader from '@/shared/ImageUploader/ImageUploader';
 import { Gaps } from '@/shared/tokens';
+import { Avatar } from '@/entities/user/ui/Avatar/Avatar';
+import { useAtom } from 'jotai';
+import { updateProfileAtom } from '@/entities/user/model/user.state';
+import { Button } from '@/shared/Button/Button';
 
 export default function Profile() {
   const [image, setImage] = useState<string | null>(null);
+  const [profile, updateProfile] = useAtom(updateProfileAtom);
+
+  const submitProfile = () => {
+    if (!image) {
+      return;
+    }
+    updateProfile({ photo: image });
+  };
+
+  useEffect(() => {
+    if (profile && profile.profile?.photo) {
+      setImage(profile.profile.photo);
+    }
+  }, [profile]);
 
   return (
-    <View style={styles.container}>
-      {image ? (
-        <Image
-          style={styles.image}
-          source={{
-            uri: image,
-            width: 100,
-            height: 100,
-          }}
+    <View>
+      <View style={styles.container}>
+        <Avatar image={image} />
+        <ImageUploader
+          onUpload={setImage}
+          onError={(error) => console.log(error)}
         />
-      ) : (
-        <Image
-          style={styles.image}
-          source={require('../../assets/images/avatar.png')}
-          resizeMode="contain"
-        />
-      )}
-
-      <ImageUploader onUpload={setImage} />
+      </View>
+      <Button text="Сохранить" onPress={submitProfile} />
     </View>
   );
 }
@@ -37,10 +45,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: 30,
     paddingVertical: 20,
-  },
-  image: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
   },
 });
