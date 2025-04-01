@@ -1,4 +1,4 @@
-import { CloseDrawer } from '@/features/layout/ui/CloseDrawer/CloseDrawer';
+import { CloseDrawer } from '@/features/layout/ui/CloseDrawer/CloseDrawer.android';
 import { CustomLink } from '@/shared/Link/CustomLink';
 import { Colors } from '@/shared/tokens';
 import {

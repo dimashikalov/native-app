@@ -1,13 +1,22 @@
 import { loginAtom } from '@/entities/auth/model/auth.state';
 import { Button } from '@/shared/Button/Button';
 import { ErrorNotification } from '@/shared/ErrorNotification/ErrorNotification';
+import { useScreenOrientation } from '@/shared/hooks';
 import { Input } from '@/shared/Input/Input';
 import { CustomLink } from '@/shared/Link/CustomLink';
 import { Colors, Gaps } from '@/shared/tokens';
 import { router } from 'expo-router';
+import { Orientation } from 'expo-screen-orientation';
 import { useAtom } from 'jotai';
 import { useEffect, useState } from 'react';
-import { Image, StyleSheet, View } from 'react-native';
+import {
+  Dimensions,
+  Image,
+  KeyboardAvoidingView,
+  Platform,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 export default function HomeScreen() {
   const [localError, setLocalError] = useState<string | undefined>();
@@ -15,6 +24,7 @@ export default function HomeScreen() {
   const [password, setPassword] = useState<string>('');
 
   const [{ access_token, isLoading, error }, login] = useAtom(loginAtom);
+  const orientation = useScreenOrientation();
 
   const alert = () => {
     setLocalError('OOOO, error!');
@@ -50,7 +60,10 @@ export default function HomeScreen() {
   return (
     <View style={styles.container}>
       <ErrorNotification error={localError} />
-      <View style={styles.content}>
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={styles.content}
+      >
         <View style={styles.title}>
           <Image
             style={styles.title_image}
@@ -60,15 +73,41 @@ export default function HomeScreen() {
         </View>
 
         <View style={styles.form}>
-          <Input placeholder="Email" onChangeText={setEmail} />
-
-          <Input placeholder="Пароль" isPassword onChangeText={setPassword} />
+          <View
+            style={{
+              ...styles.inputs,
+              flexDirection:
+                orientation === Orientation.PORTRAIT_UP ? 'column' : 'row',
+            }}
+          >
+            <Input
+              style={{
+                width:
+                  orientation === Orientation.PORTRAIT_UP
+                    ? 'auto'
+                    : Dimensions.get('window').width / 2 - 16 - 48,
+              }}
+              placeholder="Email"
+              onChangeText={setEmail}
+            />
+            <Input
+              style={{
+                width:
+                  orientation === Orientation.PORTRAIT_UP
+                    ? 'auto'
+                    : Dimensions.get('window').width / 2 - 16 - 48,
+              }}
+              placeholder="Пароль"
+              isPassword
+              onChangeText={setPassword}
+            />
+          </View>
 
           <Button text="Войти" onPress={onSubmitForm} isLoading={isLoading} />
         </View>
 
         <CustomLink href={'/restore'} text="Восстановить пароль" />
-      </View>
+      </KeyboardAvoidingView>
     </View>
   );
 }
@@ -89,12 +128,13 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     gap: Gaps.g16,
   },
+  inputs: {
+    gap: Gaps.g16,
+  },
 
   title: {
     flexDirection: 'row',
     height: 28,
-    // gap: 10,
-    // alignSelf: 'center',
   },
 
   title_text: {
@@ -102,7 +142,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
   },
   title_image: {
-    width: 220,
+    width: Platform.select({ ios: 220, android: 250 }),
   },
 
   button: {

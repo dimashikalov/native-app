@@ -12,11 +12,12 @@ import EyeClosedIcon from '@/assets/icons/eye-closed';
 
 export function Input({
   isPassword,
+  style,
   ...props
 }: TextInputProps & { isPassword?: boolean }) {
   const [isPasswordVisible, setIsPassportVisble] = useState<boolean>(false);
   return (
-    <View>
+    <View style={style}>
       <TextInput
         style={styles.input}
         secureTextEntry={isPassword && !isPasswordVisible}
