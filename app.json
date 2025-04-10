@@ -24,10 +24,9 @@
             "./assets/fonts/FiraSans-SemiBold.ttf",
             "./assets/fonts/FiraSans-Regular.ttf"
           ]
-          // "fonts": ["./assets/fonts/FiraSans-Regular.ttf"]
         }
-      ]
-      // "expo-router"
+      ],
+      "expo-router"
     ],
     "ios": {
       "supportsTablet": true
@@ -42,7 +41,6 @@
       "output": "static",
       "favicon": "./assets/images/favicon.png"
     },
-
     "experiments": {
       "typedRoutes": true
     }
