@@ -25,7 +25,8 @@ export const loadCourseAtom = atom(
       });
       const { data } = await axios.get<ICourseResponse>(API.my, {
         params: {
-          studentCourse: 'my',
+          studentCourse: 'dontMy',
+          // studentCourse: 'my',
         },
         headers: {
           Authorization: `Bearer ${access_token}`,

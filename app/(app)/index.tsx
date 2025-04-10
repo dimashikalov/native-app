@@ -1,12 +1,12 @@
+import { StudentCourseDescription } from '@/entities/course/model/course.model';
 import {
   courseAtom,
   loadCourseAtom,
 } from '@/entities/course/model/course.state';
-import { Gaps } from '@/shared/tokens';
+import CourseCard from '@/entities/course/ui/CourseCard';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { FlatList, StyleSheet, View } from 'react-native';
 
 export default function MyCourses() {
   const { courses, error, isLoading } = useAtomValue(courseAtom);
@@ -16,29 +16,29 @@ export default function MyCourses() {
     loadCourse();
   }, []);
 
+  const renderCourse = ({ item }: { item: StudentCourseDescription }) => {
+    return (
+      <View style={styles.item}>
+        <CourseCard {...item} key={item.id} />
+      </View>
+    );
+  };
+
   return (
-    <View style={styles.container}>
-      <Text style={{ color: 'white' }}>Index</Text>
-      {courses.length > 0 &&
-        courses.map((c) => (
-          <Text style={{ color: 'white' }} key={c.id}>
-            {c.title}
-          </Text>
-        ))}
-    </View>
+    <>
+      {courses.length > 0 && (
+        <FlatList
+          data={courses}
+          keyExtractor={(item) => item.id.toString()}
+          renderItem={renderCourse}
+        />
+      )}
+    </>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: Colors.black,
-    padding: 55,
-  },
-
-  content: {
-    alignItems: 'center',
-    gap: Gaps.g50,
+  item: {
+    padding: 20,
   },
 });

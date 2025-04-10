@@ -8,10 +8,12 @@ export const Colors = {
   gray: '#AFB2BF',
   white: '#FAFAFA',
   red: '#CC384E',
+  border: '#4D5064',
 };
 
 export const Gaps = {
   g8: 8,
+  g10: 10,
   g16: 16,
   g20: 20,
   g50: 50,
@@ -19,6 +21,7 @@ export const Gaps = {
 
 export const Radius = {
   r10: 10,
+  r17: 17,
 };
 
 export const Fonts = {

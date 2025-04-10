@@ -36,7 +36,7 @@ export default function ImageUploader({
     }
 
     const asset = await pickImage();
-    console.log('asset ', asset?.uri);
+
     if (!asset) {
       onError('Не выбрано изображение');
       return;
@@ -73,7 +73,6 @@ export default function ImageUploader({
       quality: 0.5,
     });
 
-    console.log('pick == > ', result);
     if (!result.assets) {
       return null;
     }
@@ -82,8 +81,6 @@ export default function ImageUploader({
   };
 
   const uploadToServer = async (uri: string, name: string) => {
-    console.log('asset uri ', uri);
-    console.log('asset name ', name);
     const formData = new FormData();
     formData.append('files', {
       // formData.append('lms.stage', {
@@ -92,7 +89,6 @@ export default function ImageUploader({
       type: 'image/jpeg',
     });
 
-    console.log('formdata ', formData);
     try {
       const { data } = await axios.post<UploaderResponse>(
         FILE_API.uploadImage,
@@ -103,7 +99,6 @@ export default function ImageUploader({
           },
         }
       );
-      console.log('data ', data);
 
       return data.urls.original;
     } catch (error) {
