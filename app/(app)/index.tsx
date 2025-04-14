@@ -4,9 +4,16 @@ import {
   loadCourseAtom,
 } from '@/entities/course/model/course.state';
 import CourseCard from '@/entities/course/ui/CourseCard';
+import { Colors } from '@/shared/tokens';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';
-import { FlatList, StyleSheet, View } from 'react-native';
+import {
+  ActivityIndicator,
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 export default function MyCourses() {
   const { courses, error, isLoading } = useAtomValue(courseAtom);
@@ -26,8 +33,18 @@ export default function MyCourses() {
 
   return (
     <>
+      {isLoading && (
+        <ActivityIndicator
+          style={styles.activity}
+          size={'large'}
+          color={Colors.primary}
+        />
+      )}
       {courses.length > 0 && (
         <FlatList
+          refreshControl={
+            <RefreshControl refreshing={isLoading} onRefresh={loadCourse} />
+          }
           data={courses}
           keyExtractor={(item) => item.id.toString()}
           renderItem={renderCourse}
@@ -40,5 +57,8 @@ export default function MyCourses() {
 const styles = StyleSheet.create({
   item: {
     padding: 20,
+  },
+  activity: {
+    marginTop: 30,
   },
 });

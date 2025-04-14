@@ -25,7 +25,7 @@ export const loadCourseAtom = atom(
       });
       const { data } = await axios.get<ICourseResponse>(API.my, {
         params: {
-          studentCourse: 'dontMy',
+          studentCourse: 'other',
           // studentCourse: 'my',
         },
         headers: {
@@ -35,7 +35,8 @@ export const loadCourseAtom = atom(
 
       set(courseAtom, {
         isLoading: false,
-        courses: data.my,
+        // courses: data.my,
+        courses: data.other,
         error: null,
       });
     } catch (error) {
@@ -59,5 +60,6 @@ export interface CourseState {
 
 //interface для получения массива из объекта ответа
 interface ICourseResponse {
-  my: StudentCourseDescription[];
+  other: StudentCourseDescription[];
+  // my: StudentCourseDescription[];
 }
