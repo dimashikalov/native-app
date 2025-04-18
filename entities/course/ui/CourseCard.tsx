@@ -1,9 +1,10 @@
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import React from 'react';
 import { StudentCourseDescription } from '../model/course.model';
 import { Colors, Fonts, Gaps, Radius } from '@/shared/tokens';
 import { Button } from '@/shared/Button/Button';
 import Chip from '@/shared/Chip/Chip';
+import { PREFIX } from '@/shared/api';
 
 export default function CourseCard(course: StudentCourseDescription) {
   return (
@@ -25,7 +26,12 @@ export default function CourseCard(course: StudentCourseDescription) {
         </View>
       </View>
       <View style={styles.footer}>
-        <Button text="Продолжить" />
+        <Button
+          text="Купить"
+          onPress={() =>
+            Linking.openURL(`https://purpleschool.ru/course/${course.alias}`)
+          }
+        />
       </View>
     </View>
   );
