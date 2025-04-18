@@ -5,6 +5,8 @@ import { Colors, Fonts, Gaps, Radius } from '@/shared/tokens';
 import { Button } from '@/shared/Button/Button';
 import Chip from '@/shared/Chip/Chip';
 import { PREFIX } from '@/shared/api';
+import MaskedView from '@react-native-masked-view/masked-view';
+import { LinearGradient } from 'expo-linear-gradient';
 
 export default function CourseCard(course: StudentCourseDescription) {
   return (
@@ -24,6 +26,25 @@ export default function CourseCard(course: StudentCourseDescription) {
               <Chip text={c.direction.name} />
             ))}
         </View>
+        {course.tariffs.length > 0 && (
+          <MaskedView
+            maskElement={
+              <Text style={styles.tariff}>
+                Тариф &laquo;{course.tariffs[0].name}&raquo;
+              </Text>
+            }
+          >
+            <LinearGradient
+              colors={['#D77BE5', '#6C38CC']}
+              start={{ x: 0, y: 0 }}
+              end={{ x: 1, y: 0 }}
+            >
+              <Text style={{ ...styles.tariff, ...styles.tariffWithOpacity }}>
+                Тариф &laquo;{course.tariffs[0].name}&raquo;
+              </Text>
+            </LinearGradient>
+          </MaskedView>
+        )}
       </View>
       <View style={styles.footer}>
         <Button
@@ -43,6 +64,14 @@ const styles = StyleSheet.create({
     borderRadius: Radius.r10,
     backgroundColor: Colors.blackLight,
   },
+  tariff: {
+    marginTop: 10,
+    fontSize: Fonts.f16,
+    fontFamily: Fonts.regular,
+  },
+  tariffWithOpacity: {
+    opacity: 0,
+  },
   image: {
     height: 200,
     borderRadius: Radius.r10,
@@ -58,11 +87,6 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.semibold,
     fontSize: Fonts.f20,
     marginBottom: 12,
-  },
-  tariff: {
-    color: Colors.primaryHover,
-    fontFamily: Fonts.regular,
-    fontSize: Fonts.f16,
   },
   chips: {
     flexDirection: 'row',
