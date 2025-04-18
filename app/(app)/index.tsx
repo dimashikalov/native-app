@@ -3,7 +3,7 @@ import {
   courseAtom,
   loadCourseAtom,
 } from '@/entities/course/model/course.state';
-import CourseCard from '@/entities/course/ui/CourseCard';
+import CourseCard from '@/widget/course/ui/CourseCard/CourseCard';
 import { Colors } from '@/shared/tokens';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useEffect } from 'react';

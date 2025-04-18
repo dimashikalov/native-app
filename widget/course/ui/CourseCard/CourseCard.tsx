@@ -1,12 +1,13 @@
 import { View, Text, StyleSheet, Image, Linking } from 'react-native';
 import React from 'react';
-import { StudentCourseDescription } from '../model/course.model';
+import { StudentCourseDescription } from '../../../../entities/course/model/course.model';
 import { Colors, Fonts, Gaps, Radius } from '@/shared/tokens';
 import { Button } from '@/shared/Button/Button';
 import Chip from '@/shared/Chip/Chip';
 import { PREFIX } from '@/shared/api';
 import MaskedView from '@react-native-masked-view/masked-view';
 import { LinearGradient } from 'expo-linear-gradient';
+import CourseProgress from '@/entities/course/ui/CourseProgress/CourseProgress';
 
 export default function CourseCard(course: StudentCourseDescription) {
   return (
@@ -19,6 +20,7 @@ export default function CourseCard(course: StudentCourseDescription) {
       />
 
       <View style={styles.header}>
+        <CourseProgress passedLessons={30} totalLessons={120} />
         <Text style={styles.title}>{course.shortTitle}</Text>
         <View style={styles.chips}>
           {course.courseOnDirection.length > 0 &&
