@@ -25,7 +25,7 @@ export default function CourseCard(course: StudentCourseDescription) {
         <View style={styles.chips}>
           {course.courseOnDirection.length > 0 &&
             course.courseOnDirection.map((c) => (
-              <Chip text={c.direction.name} />
+              <Chip text={c.direction.name} key={c.direction.name} />
             ))}
         </View>
         {course.tariffs.length > 0 && (

@@ -26,6 +26,16 @@
           ]
         }
       ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/images/notification_icon.png",
+          "color": "#16171D",
+          "defaultChannel": "default",
+
+          "enableBackgroundRemoteNotifications": false
+        }
+      ],
       "expo-router"
     ],
     "ios": {
