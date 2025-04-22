@@ -8,6 +8,7 @@ import {
 import { useFonts } from 'expo-font';
 import { useEffect } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
+import { Notification } from '@/shared/Notification/Notification';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -41,6 +42,7 @@ export default function RootLayout() {
 
   return (
     <SafeAreaProvider>
+      <Notification />
       <StatusBar style="light" />
       <Stack
         screenOptions={{

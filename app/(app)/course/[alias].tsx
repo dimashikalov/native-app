@@ -4,6 +4,7 @@ import { Text, View } from 'react-native';
 
 export default function CoursePage() {
   const { alias } = useLocalSearchParams();
+  console.log('alias ', alias);
   return (
     <View>
       <Text style={{ color: Colors.white }}>{alias}</Text>
